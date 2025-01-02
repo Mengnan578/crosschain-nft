@@ -1,0 +1,15 @@
+{
+    "description": "this is my amazing miaomiao token",
+    "image": "https://voluntary-harlequin-trout.myfilebase.com/ipfs/Qmb6FH6yNxknR6jrxbFqEu4PdhRcvMH3CjCmxVA74jqy25",
+    "name": "shuaidawang",
+    "attributes": [
+        {
+            "trait_type": "Breed",   
+            "value": "shiba Inu"
+        },
+        {
+            "trait_type": "temperature",
+            "value": "average"
+        }
+    ]
+}
