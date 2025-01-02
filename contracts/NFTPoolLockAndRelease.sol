@@ -52,8 +52,6 @@ contract NFTPoolLockAndRelease is CCIPReceiver, OwnerIsCreator {
         address newOwner;
     }
 
-    mapping(uint256 => bool) public TokenLocked;
-
     /// @notice Constructor initializes the contract with the router address.
     /// @param _router The address of the router contract.
     /// @param _link The address of the link contract.
@@ -78,7 +76,6 @@ contract NFTPoolLockAndRelease is CCIPReceiver, OwnerIsCreator {
             nft.transferFrom(msg.sender, address(this), _tokenId);
             bytes memory payload = abi.encode(_tokenId, _newOwner);
             bytes32 messageId = sendMessagePayLINK(_chainSelector, _receiver, payload);
-            TokenLocked[_tokenId] = true;
             return messageId;
     }
 
@@ -149,9 +146,6 @@ contract NFTPoolLockAndRelease is CCIPReceiver, OwnerIsCreator {
         RequestData memory requestData = abi.decode(any2EvmMessage.data, (RequestData));
         uint256 tokenId = requestData.tokenId;
         address newOwner = requestData.newOwner;
-
-        // check if the NFT is locked
-        require(TokenLocked[tokenId], "the token is not locked");
         // transfer NFT to new owner
         nft.transferFrom(address(this), newOwner, tokenId);
         emit TokenUnlocked(tokenId, newOwner);
